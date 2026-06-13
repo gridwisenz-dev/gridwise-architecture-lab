@@ -1,4 +1,4 @@
-tick,timestamp,weather_pattern,tariff,actual_inflow,expected_inflow,random_simulator_cost,forecast_optimizer_cost,cost_delta_optimizer_minus_random,random_simulator_ending_volume,forecast_optimizer_ending_volume,random_simulator_pumped,forecast_optimizer_pumped,random_simulator_warnings,forecast_optimizer_warnings
+tick,timestamp,weather_pattern,tariff,actual_inflow,expected_inflow,actual_cost,forecast_optimizer_cost,cost_delta_optimizer_minus_actual,actual_ending_volume,forecast_optimizer_ending_volume,actual_pumped,forecast_optimizer_pumped,actual_warnings,forecast_optimizer_warnings
 1,2026-06-01T00:00:00+00:00,dry,228.42,0.30,0.3290,1827.36,0.00,-1827.36,127.30,135.30,8.00,0.00,,
 2,2026-06-01T00:30:00+00:00,dry,228.42,0.19,0.1930,913.68,0.00,-913.68,123.49,135.49,4.00,0.00,,
 3,2026-06-01T01:00:00+00:00,dry,228.42,0.48,0.4881,1827.36,0.00,-1827.36,115.97,135.97,8.00,0.00,,

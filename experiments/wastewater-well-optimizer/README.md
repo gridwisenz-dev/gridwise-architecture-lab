@@ -60,7 +60,7 @@ This writes:
 - `data/optimizer_12_hour_comparison.csv`
 - `reports/optimizer_12_hour_comparison.html`
 
-## Compare Actual Simulator And 2-Day Forecast Optimizer
+## Compare Actual And 2-Day Forecast Optimizer
 
 ```bash
 python scripts/compare_actuals_vs_2_day_forecast_optimizer.py
@@ -68,7 +68,7 @@ python scripts/compare_actuals_vs_2_day_forecast_optimizer.py
 
 This writes:
 
-- `data/actual_random_simulator_30_day.csv`
+- `data/actual_30_day.csv`
 - `data/optimizer_2_day_forecast_12_hour.csv`
 - `data/actual_vs_2_day_forecast_optimizer.csv`
 - `reports/actual_vs_2_day_forecast_optimizer.html`

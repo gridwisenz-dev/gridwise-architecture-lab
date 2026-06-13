@@ -33,7 +33,7 @@ RANDOM_SEED = 20260614
 EXECUTION_TICKS = 24
 FORECAST_TICKS = 96
 
-ACTUAL_SIMULATION_CSV = ROOT / "data" / "actual_random_simulator_30_day.csv"
+ACTUAL_SIMULATION_CSV = ROOT / "data" / "actual_30_day.csv"
 FORECAST_OPTIMIZER_CSV = ROOT / "data" / "optimizer_2_day_forecast_12_hour.csv"
 COMPARISON_CSV = ROOT / "data" / "actual_vs_2_day_forecast_optimizer.csv"
 COMPARISON_HTML = ROOT / "reports" / "actual_vs_2_day_forecast_optimizer.html"
@@ -253,14 +253,14 @@ def build_comparison_rows(
                 "tariff": actual["tariff"],
                 "actual_inflow": actual["inflow"],
                 "expected_inflow": actual["expected_inflow"],
-                "random_simulator_cost": f"{actual_cost:.2f}",
+                "actual_cost": f"{actual_cost:.2f}",
                 "forecast_optimizer_cost": f"{optimized_cost:.2f}",
-                "cost_delta_optimizer_minus_random": f"{optimized_cost - actual_cost:.2f}",
-                "random_simulator_ending_volume": actual["ending_volume"],
+                "cost_delta_optimizer_minus_actual": f"{optimized_cost - actual_cost:.2f}",
+                "actual_ending_volume": actual["ending_volume"],
                 "forecast_optimizer_ending_volume": optimized["ending_volume"],
-                "random_simulator_pumped": actual["pumped_volume"],
+                "actual_pumped": actual["pumped_volume"],
                 "forecast_optimizer_pumped": optimized["pumped_volume"],
-                "random_simulator_warnings": actual["warnings"],
+                "actual_warnings": actual["warnings"],
                 "forecast_optimizer_warnings": optimized["warnings"],
             }
         )
@@ -323,7 +323,7 @@ def write_html_report(
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Actual Simulator vs 2-Day Forecast Optimizer</title>
+  <title>Actual vs 2-Day Forecast Optimizer</title>
   <style>
     body {{ margin: 0; font-family: Arial, sans-serif; background: #f7f9fb; color: #17202a; }}
     header {{ padding: 24px 32px; background: #fff; border-bottom: 1px solid #d9e2ec; }}
@@ -341,12 +341,12 @@ def write_html_report(
 </head>
 <body>
   <header>
-    <h1>Actual Simulator vs 2-Day Forecast Optimizer</h1>
-    <div>Actual simulator uses randomized feasible actions. Optimizer receives 2 days of tariff and expected inflow data, then executes 12 hours before re-optimizing.</div>
+    <h1>Actual vs 2-Day Forecast Optimizer</h1>
+    <div>Actual uses randomized feasible actions. Optimizer receives 2 days of tariff and expected inflow data, then executes 12 hours before re-optimizing.</div>
   </header>
   <main>
     <div class="metrics">
-      {metric("Random actual cost", f"{actual['cost']:,.2f}")}
+      {metric("Actual cost", f"{actual['cost']:,.2f}")}
       {metric("Forecast optimizer cost", f"{optimized['cost']:,.2f}")}
       {metric("Savings", f"{actual['cost'] - optimized['cost']:,.2f}")}
       {metric("Savings %", f"{-percent:.2f}%")}
@@ -354,7 +354,7 @@ def write_html_report(
 
     <table>
       <thead>
-        <tr><th>Measure</th><th>Random Actual Simulator</th><th>2-Day Forecast Optimizer</th></tr>
+        <tr><th>Measure</th><th>Actual</th><th>2-Day Forecast Optimizer</th></tr>
       </thead>
       <tbody>
         <tr><td>Total cost</td><td>{actual['cost']:.2f}</td><td>{optimized['cost']:.2f}</td></tr>
@@ -372,7 +372,7 @@ def write_html_report(
         <thead>
           <tr>
             <th>Time</th><th>Tariff</th><th>Pattern</th><th>Actual Inflow</th><th>Expected Inflow</th>
-            <th>Random Cost</th><th>Optimizer Cost</th><th>Delta</th>
+            <th>Actual Cost</th><th>Optimizer Cost</th><th>Delta</th>
             <th>Random Vol</th><th>Optimizer Vol</th>
           </tr>
         </thead>
@@ -410,10 +410,10 @@ def comparison_row(row: dict[str, str]) -> str:
         f"<td>{html.escape(row['weather_pattern'])}</td>"
         f"<td>{html.escape(row['actual_inflow'])}</td>"
         f"<td>{html.escape(row['expected_inflow'])}</td>"
-        f"<td>{html.escape(row['random_simulator_cost'])}</td>"
+        f"<td>{html.escape(row['actual_cost'])}</td>"
         f"<td>{html.escape(row['forecast_optimizer_cost'])}</td>"
-        f"<td>{html.escape(row['cost_delta_optimizer_minus_random'])}</td>"
-        f"<td>{html.escape(row['random_simulator_ending_volume'])}</td>"
+        f"<td>{html.escape(row['cost_delta_optimizer_minus_actual'])}</td>"
+        f"<td>{html.escape(row['actual_ending_volume'])}</td>"
         f"<td>{html.escape(row['forecast_optimizer_ending_volume'])}</td>"
         "</tr>"
     )
