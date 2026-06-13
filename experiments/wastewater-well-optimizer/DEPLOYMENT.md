@@ -64,6 +64,35 @@ Suitable options:
 - Azure Container Apps
 - Google Cloud Run
 
+## Render Blueprint
+
+The repo root includes `render.yaml` for a Render Blueprint deployment.
+
+Render service settings from the blueprint:
+
+| Setting | Value |
+| --- | --- |
+| Service name | `gridwise-optimizer` |
+| Runtime | `python` |
+| Root directory | `experiments/wastewater-well-optimizer` |
+| Build command | `pip install -r requirements.txt` |
+| Start command | `uvicorn gridwise_optimizer.api:app --host 0.0.0.0 --port $PORT` |
+| Health check path | `/healthz` |
+| Required secret | `OPTIMISER_API_KEY` |
+
+After the Render service is created, the direct optimizer URL should look like:
+
+```text
+https://gridwise-optimizer.onrender.com
+```
+
+Set this in the Gridwise Vercel app:
+
+```text
+OPTIMISER_API_URL=https://gridwise-optimizer.onrender.com
+OPTIMISER_API_KEY=<same value set on Render>
+```
+
 ## Path Handling
 
 The optimizer service exposes `/optimise` directly.

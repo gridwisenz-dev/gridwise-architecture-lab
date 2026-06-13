@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: gridwise-optimizer
+    runtime: python
+    rootDir: experiments/wastewater-well-optimizer
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn gridwise_optimizer.api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit
+    envVars:
+      - key: OPTIMISER_API_KEY
+        sync: false
+

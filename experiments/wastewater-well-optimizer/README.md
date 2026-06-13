@@ -48,6 +48,8 @@ See `CONFIGURATION.md` for the optimizer request format, well configuration valu
 
 See `DEPLOYMENT.md` for the target public endpoint and setup notes for `https://app.gridwise.nz/api/optimise`.
 
+The repository root includes a Render Blueprint file, `render.yaml`, for deploying this optimizer as a separate service named `gridwise-optimizer`.
+
 ## Generate 30-Day Scenario View
 
 ```bash
