@@ -2,6 +2,10 @@
 
 ## Endpoint
 
+`POST /optimise`
+
+Compatibility alias:
+
 `POST /optimize`
 
 ## What The Optimizer Does

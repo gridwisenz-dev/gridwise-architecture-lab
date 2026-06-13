@@ -15,6 +15,6 @@ def health() -> dict[str, str]:
 
 
 @app.post("/optimize", response_model=OptimizeResponse)
+@app.post("/optimise", response_model=OptimizeResponse)
 def optimize_endpoint(request: OptimizeRequest) -> OptimizeResponse:
     return optimize(request)
-

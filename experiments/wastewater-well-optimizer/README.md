@@ -44,6 +44,10 @@ python -m unittest discover -s tests
 
 See `CONFIGURATION.md` for the optimizer request format, well configuration values, tariff file format, and scenario input file format.
 
+## Deployment
+
+See `DEPLOYMENT.md` for the target public endpoint and setup notes for `https://app.gridwise.nz/optimise`.
+
 ## Generate 30-Day Scenario View
 
 ```bash

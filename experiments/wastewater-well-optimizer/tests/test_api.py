@@ -14,12 +14,13 @@ class ApiTests(unittest.TestCase):
         sample_path = Path(__file__).parents[1] / "samples" / "optimizer_request.json"
         client = TestClient(app)
 
-        response = client.post("/optimize", json=json.loads(sample_path.read_text()))
+        for path in ("/optimize", "/optimise"):
+            response = client.post(path, json=json.loads(sample_path.read_text()))
 
-        self.assertEqual(response.status_code, 200)
-        body = response.json()
-        self.assertTrue(body["feasible"])
-        self.assertEqual(len(body["plan"]), body["horizon_ticks"])
+            self.assertEqual(response.status_code, 200)
+            body = response.json()
+            self.assertTrue(body["feasible"])
+            self.assertEqual(len(body["plan"]), body["horizon_ticks"])
 
 
 if __name__ == "__main__":
