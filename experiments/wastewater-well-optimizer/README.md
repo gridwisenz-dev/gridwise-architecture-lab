@@ -46,7 +46,7 @@ See `CONFIGURATION.md` for the optimizer request format, well configuration valu
 
 ## Deployment
 
-See `DEPLOYMENT.md` for the target public endpoint and setup notes for `https://app.gridwise.nz/optimise`.
+See `DEPLOYMENT.md` for the target public endpoint and setup notes for `https://app.gridwise.nz/api/optimise`.
 
 ## Generate 30-Day Scenario View
 

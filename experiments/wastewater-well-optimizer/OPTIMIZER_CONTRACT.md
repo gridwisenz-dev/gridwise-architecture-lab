@@ -2,11 +2,35 @@
 
 ## Endpoint
 
+Public Gridwise app endpoint after proxying:
+
+`POST https://app.gridwise.nz/api/optimise`
+
+Direct optimizer service endpoint:
+
 `POST /optimise`
 
 Compatibility alias:
 
 `POST /optimize`
+
+Health endpoints:
+
+`GET /health`
+
+`GET /healthz`
+
+## Authentication
+
+The optimizer service supports `x-api-key` authentication.
+
+If `OPTIMISER_API_KEY` is set on the optimizer service, callers must include:
+
+```text
+x-api-key: <secret>
+```
+
+In production, the Gridwise Next.js API route should hold the key in Vercel environment variables and add this header when forwarding requests to the optimizer service.
 
 ## What The Optimizer Does
 
@@ -96,3 +120,5 @@ For each 30-minute interval:
 - the returned plan is advisory beyond the first 12 hours
 - tariff and inflow forecasts are provided by the caller
 - expected inflows used in the current comparison are conservative and within 10% above actuals
+- the Gridwise app exposes `/api/optimise` and proxies to the separate optimizer service
+- direct synchronous proxying is suitable only while optimizer runtime stays within hosting timeout limits
