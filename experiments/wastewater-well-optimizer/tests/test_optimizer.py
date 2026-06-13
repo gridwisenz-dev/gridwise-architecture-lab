@@ -15,7 +15,7 @@ class OptimizerTests(unittest.TestCase):
         response = optimize(request)
 
         self.assertTrue(response.feasible)
-        self.assertEqual(len(response.plan), 12)
+        self.assertEqual(len(response.plan), request.horizon_ticks)
         self.assertGreaterEqual(response.total_energy_cost, 0)
 
     def test_simulator_rejects_offline_pump_with_rate(self):
@@ -45,4 +45,3 @@ class OptimizerTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

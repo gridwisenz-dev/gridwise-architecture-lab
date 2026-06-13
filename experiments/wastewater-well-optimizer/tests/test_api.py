@@ -19,9 +19,8 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         body = response.json()
         self.assertTrue(body["feasible"])
-        self.assertEqual(len(body["plan"]), 12)
+        self.assertEqual(len(body["plan"]), body["horizon_ticks"])
 
 
 if __name__ == "__main__":
     unittest.main()
-

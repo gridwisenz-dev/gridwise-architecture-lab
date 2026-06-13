@@ -40,6 +40,10 @@ GET  http://127.0.0.1:8000/health
 python -m unittest discover -s tests
 ```
 
+## Configuration Reference
+
+See `CONFIGURATION.md` for the optimizer request format, well configuration values, tariff file format, and scenario input file format.
+
 ## Generate 30-Day Scenario View
 
 ```bash
