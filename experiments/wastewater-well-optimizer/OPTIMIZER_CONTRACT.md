@@ -6,9 +6,9 @@
 
 ## What The Optimizer Does
 
-The optimizer receives the current well state, well configuration, inflow forecast, and electricity tariff forecast. It returns a 12-hour pump operating plan at 30-minute intervals.
+The optimizer receives the current well state, well configuration, inflow forecast, electricity tariff forecast, and pump outage forecast. It returns a pump operating plan at 30-minute intervals across the supplied forecast horizon.
 
-The caller should execute only the first 30-minute decision, update the well state, then call the optimizer again.
+For the current publication path, the caller should pass the next 2 days of forecast data, execute the first 12 hours of the returned plan, update the well state, then call the optimizer again with a refreshed 2-day forecast.
 
 ## Inputs Required
 
@@ -33,12 +33,20 @@ The caller should execute only the first 30-minute decision, update the well sta
 ### Inflow Forecast
 
 - expected incoming wastewater volume for each 30-minute interval
-- default horizon is 24 intervals, which equals 12 hours
+- current publication mode expects 96 intervals, which equals 2 days
+- the API default is 24 intervals, which equals 12 hours, if no horizon is specified
 
 ### Electricity Tariff Forecast
 
 - electricity rate for each 30-minute interval
 - tariff values should already be aligned to the month and tariff period
+- current publication mode expects the next 2 days of tariff values
+
+### Pump Outage Forecast
+
+- unavailable pump IDs for each 30-minute interval
+- this captures planned or expected pump outages
+- if omitted, the optimizer assumes all pumps are available
 
 ## Outputs Generated
 
@@ -47,7 +55,7 @@ The caller should execute only the first 30-minute decision, update the well sta
 - whether a valid plan was found
 - warning message if no valid plan exists
 
-### 12-Hour Plan
+### Forecast-Horizon Plan
 
 For each 30-minute interval:
 
@@ -78,9 +86,9 @@ For each 30-minute interval:
 
 ## Current Assumptions
 
-- one optimizer call covers 12 hours
+- current publication mode passes 2 days of forecast input per optimizer call
+- the caller executes the first 12 hours of the returned plan before calling again
 - each clock tick is 30 minutes
-- the returned plan is advisory beyond the first tick
-- the shell or caller is responsible for executing only the first tick and calling again
+- the returned plan is advisory beyond the first 12 hours
 - tariff and inflow forecasts are provided by the caller
-
+- expected inflows used in the current comparison are conservative and within 10% above actuals

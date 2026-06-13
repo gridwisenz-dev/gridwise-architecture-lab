@@ -2,13 +2,17 @@
 
 This project contains the wastewater well optimizer service.
 
-The optimizer receives the current well model, current state, inflow forecast, and electricity tariff forecast. It returns a 12-hour operating plan at 30-minute intervals.
+The optimizer receives the current well model, current state, inflow forecast, electricity tariff forecast, and pump outage forecast. It returns a 30-minute interval operating plan across the supplied forecast horizon.
+
+For the current publication path, callers pass the next 2 days of forecast inputs and execute the first 12 hours of the returned plan before re-optimizing.
 
 ## Scope
 
 - 30-minute clock ticks
-- 12-hour optimization horizon by default
-- 24 optimizer decisions per call
+- 30-minute interval optimization
+- 2-day forecast input mode for the current comparison and publication path
+- 12-hour execution cadence before re-optimizing
+- 12-hour API default if no horizon is specified
 - Pump on/off and rate decisions
 - Well-volume constraint checks
 - Electricity-cost-aware scoring
@@ -65,6 +69,8 @@ This writes:
 ```bash
 python scripts/compare_actuals_vs_2_day_forecast_optimizer.py
 ```
+
+This compares an actual randomized feasible simulator against the optimizer. The optimizer receives 2 days of tariff and expected inflow details, then executes the first 12 hours before re-optimizing.
 
 This writes:
 
