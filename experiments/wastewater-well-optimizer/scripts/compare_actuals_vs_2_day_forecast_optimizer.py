@@ -46,7 +46,7 @@ def main() -> None:
 
     rng = random.Random(RANDOM_SEED)
     forecast_rows = add_expected_inflows(actual_rows, rng)
-    actual_simulation_rows = run_random_actual_simulator(forecast_rows, rng)
+    actual_simulation_rows = run_random_actual_simulator(actual_rows, rng)
     optimizer_rows = run_12_hour_optimizer_with_2_day_forecast(forecast_rows)
     comparison_rows = build_comparison_rows(actual_simulation_rows, optimizer_rows)
 
@@ -252,7 +252,7 @@ def build_comparison_rows(
                 "weather_pattern": actual["weather_pattern"],
                 "tariff": actual["tariff"],
                 "actual_inflow": actual["inflow"],
-                "expected_inflow": actual["expected_inflow"],
+                "expected_inflow": optimized["expected_inflow"],
                 "actual_cost": f"{actual_cost:.2f}",
                 "forecast_optimizer_cost": f"{optimized_cost:.2f}",
                 "cost_delta_optimizer_minus_actual": f"{optimized_cost - actual_cost:.2f}",
